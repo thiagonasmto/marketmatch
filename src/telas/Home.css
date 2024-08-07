@@ -48,12 +48,12 @@ header, footer {
     flex-shrink: 0;
 }
 
-
 .Home h1 {
     font-size: 5em;
 }
 
-.Home h3 {
+.Home h2 {
     font-size: 2em;
     font-weight: lighter;
+    color: #666;
 }
