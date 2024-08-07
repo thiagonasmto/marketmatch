@@ -1,0 +1,19 @@
+/* src/pages/MatchPage.css */
+.match-page main {
+  text-align: center;
+  margin-top: 180px;
+}
+
+.match-page h1 {
+  font-size: 3.5em; /* Ajuste o tamanho conforme necessário */
+  color: #000; /* Preto */
+  margin-bottom: 0; /* Sem margem inferior */
+}
+
+.match-page h2 {
+  font-size: 1.5em; /* Ajuste o tamanho conforme necessário */
+  color: #666; /* Cinza claro */
+  margin-top: 0px; /* Pequena margem superior */
+  margin-bottom: 130px; /* Espaço abaixo do título */
+}
+

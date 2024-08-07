@@ -1,9 +1,10 @@
-import React from "react";
-import Header from "../componentes/Header";
-import Footer from "../componentes/Footer";
+// src/telas/Home.jsx
+import React from 'react';
+import Header from '../componentes/Header'; // Verifique o caminho
+import Footer from '../componentes/Footer'; // Verifique o caminho
 
-function Home () {
-    return(
+function Home() {
+    return (
         <div className="containerHome">
             <Header />
             <Footer />
