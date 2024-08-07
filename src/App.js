@@ -5,7 +5,7 @@ import Itens from './telas/Itens'
 
 function App() {
   return (
-    <Home />
+    <Itens />
   );
 }
 
