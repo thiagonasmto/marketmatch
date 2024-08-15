@@ -1,11 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Header.css';
 
 function Header() {
   return (
     <header className="header">
       <div className="logo">
-        <img src="/path/to/your/logo.png" alt="Logo" />
+        <Link to="/">
+          <img src="/path/to/your/logo.png" alt="Logo" />
+        </Link>
       </div>
       <nav className="nav">
         <ul className="nav-links">
@@ -18,7 +21,9 @@ function Header() {
       </nav>
       <div className="auth-buttons">
         <button className="sign-in">Sign In</button>
-        <button className="register">Register</button>
+        <Link to="/contact">
+          <button className="register">Register</button>
+        </Link>
       </div>
     </header>
   );
