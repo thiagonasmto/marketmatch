@@ -29,6 +29,29 @@ const Usuario = sequelize.define('Usuario', {
     timestamps: false // se não houver colunas createdAt e updatedAt
 });
 
+const Itens = sequelize.define('Itens', {
+    id_item: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    nome: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    preco: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    image: {
+        type: DataTypes.BLOB,
+        allowNull: false
+    }
+}, {
+    tableName: 'item', // nome da tabela no banco de dados
+    timestamps: false // se não houver colunas createdAt e updatedAt
+});
+
 app.use(express.json());
 
 // Rota de exemplo
@@ -36,13 +59,25 @@ app.get('/', (req, res) => {
     res.send('API está funcionando!');
 });
 
+// Rota para buscar todos os usuários
 app.get('/usuarios', async (req, res) => {
     try {
-        const bananas = await Banana.findAll();
-        res.json(bananas);
+        const usuarios = await Usuario.findAll();
+        res.json(usuarios);
     } catch (error) {
         console.error('Erro ao buscar usuários:', error);
         res.status(500).json({ error: 'Erro ao buscar usuários' });
+    }
+});
+
+// Rota para buscar todos os usuários
+app.get('/itens', async (req, res) => {
+    try {
+        const itens = await Itens.findAll();
+        res.json(itens);
+    } catch (error) {
+        console.error('Erro ao buscar itens:', error);
+        res.status(500).json({ error: 'Erro ao buscar itens' });
     }
 });
 
