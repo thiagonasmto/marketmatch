@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Sidebar.css';
 
 function Sidebar({ selectedItems, onFinish }) {
@@ -17,7 +18,9 @@ function Sidebar({ selectedItems, onFinish }) {
           </li>
         ))}
       </ul>
-      <button className="finish-button" onClick={onFinish}>Finish</button>
+      <Link to="/match">
+        <button className="finish-button" onClick={onFinish}>Finish</button>
+      </Link>
     </aside>
   );
 }
