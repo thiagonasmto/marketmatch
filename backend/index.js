@@ -36,11 +36,10 @@ app.get('/', (req, res) => {
     res.send('API está funcionando!');
 });
 
-// Rota para buscar todos os usuários
 app.get('/usuarios', async (req, res) => {
     try {
-        const usuarios = await Usuario.findAll();
-        res.json(usuarios);
+        const bananas = await Banana.findAll();
+        res.json(bananas);
     } catch (error) {
         console.error('Erro ao buscar usuários:', error);
         res.status(500).json({ error: 'Erro ao buscar usuários' });
