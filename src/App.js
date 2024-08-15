@@ -1,14 +1,14 @@
-import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import Home from './telas/Home'; 
-import ContactPage from './telas/ContactPage'; 
-import MatchPage from './telas/MatchPage'; 
-import Itens from './telas/Itens'
 import './App.css';
+import React from 'react';
+import Home from './telas/Home'
+import Itens from './telas/Itens'
+import MatchPage from './telas/MatchPage';
+import ContactPage from './telas/ContactPage';
+import UserList from './componentes/UserList';
 
 const App = () => (
   <Router>
-
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/contact" element={<ContactPage />} />
