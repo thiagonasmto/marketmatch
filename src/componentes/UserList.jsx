@@ -4,8 +4,8 @@ import React, { useEffect, useState } from 'react';
 
 const UserList = () => {
   const [usuarios, setUsuarios] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState(null);
   const [item, setItem] = useState([]);
   const [loadingItem, setLoadingItem] = useState(true);
   const [errorItem, setErrorItem] = useState(null);

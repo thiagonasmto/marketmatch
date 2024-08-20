@@ -20,7 +20,9 @@ function Header() {
         </ul>
       </nav>
       <div className="auth-buttons">
-        <button className="sign-in">Sign In</button>
+        <Link to="/login">
+          <button className="sign-in">Sign In</button>
+        </Link>
         <Link to="/contact">
           <button className="register">Register</button>
         </Link>

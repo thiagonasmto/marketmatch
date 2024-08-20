@@ -9,7 +9,7 @@ function Home() {
             <Header />
             <div className="Home">
                 <h1>MARKETMATCH</h1>
-                <h3>COMPRA INTELIGENTE</h3>
+                <h2>COMPRA INTELIGENTE</h2>
                 <div className="search-container">
                     <input type="text" placeholder="O que está procurando?" className="search-input"/>
                     <button className="search-button">

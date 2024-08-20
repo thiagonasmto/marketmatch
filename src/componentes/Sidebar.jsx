@@ -9,11 +9,11 @@ function Sidebar({ selectedItems, onFinish }) {
       <ul>
         {selectedItems.map(item => (
           <li key={item.id} className="sidebar-item">
-            <img src={item.image} alt={item.name} className="sidebar-item-image" />
+            <img src={item.image} alt={item.nome} className="sidebar-item-image" />
             <div>
-              <h3>{item.name}</h3>
+              <h3>{item.nome}</h3>
               <p>{item.description}</p>
-              <p>${item.price.toFixed(2)}</p>
+              <p>${item.price}</p>
             </div>
           </li>
         ))}

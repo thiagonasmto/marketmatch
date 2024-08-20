@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import './Itens.css'
 import Item from '../componentes/Item';
 import Header from "../componentes/Header";
@@ -19,50 +19,29 @@ function Itens () {
         setSelectedItems(prevItems => [...prevItems, item]);
     };
 
-    const itens = [
-        {
-            id: 1,
-            image: kitkat,
-            name: 'Chocolate kit kat ao leite nestlé - 41,5g',
-            price: 2.99
-        },
-        {
-            id: 2,
-            image: BBgaroto,
-            name: 'Caixa de bombom garoto 250g',
-            price: 11.99
-        },
-        {
-            id: 3,
-            image: BarraLacta,
-            name: 'Barra de chocolate ao leite 80g',
-            price: 5.99
-        },
-        {
-            id: 4,
-            image: Doritos,
-            name: 'Salgadinho doritos queijo nacho 75g',
-            price: 9.99
-        },
-        {
-            id: 5,
-            image: BBgaroto,
-            name: 'Caixa de bombom garoto 250g',
-            price: 11.99
-        },
-        {
-            id: 6,
-            image: BarraLacta,
-            name: 'Barra de chocolate ao leite 80g',
-            price: 5.99
-        },
-        {
-            id: 7,
-            image: Doritos,
-            name: 'Salgadinho doritos queijo nacho 75g',
-            price: 9.99
-        },
-    ]
+    const [item, setItem] = useState([]);
+    const [loadingItem, setLoadingItem] = useState(true);
+    const [errorItem, setErrorItem] = useState(null);
+
+    useEffect(() => {
+        const fetchItens= async () => {
+            try {
+              const response = await fetch('http://localhost:3001/itens');
+              if (!response.ok) {
+                throw new Error('Erro na rede');
+              }
+              const data = await response.json();
+              setItem(data);
+            } catch (error) {
+              setErrorItem(error.message);
+            } finally {
+              setLoadingItem(false);
+            }
+        };
+               
+    
+        fetchItens();
+    }, []);
 
     return (
         <div className="containerItens">
@@ -72,7 +51,7 @@ function Itens () {
                 <div className="resultados">
                     <SearchHeader />
                     <div className="resultados-itens">
-                        {itens.map(item => (
+                        {item.map(item => (
                             <Item key={item.id} item={item} onSelectItem={handleSelectItem} />
                         ))}
                     </div>
