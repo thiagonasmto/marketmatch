@@ -40,6 +40,22 @@ const Usuario = sequelize.define('Usuario', {
     timestamps: false // desativa as colunas createdAt e updatedAt
 });
 
+// Definição do modelo 'Supermercado'
+const Supermercado = sequelize.define('Supermercado', {
+    cnpj: {
+        type: DataTypes.BIGINT, // Utilizado BIGINT para representar números grandes
+        primaryKey: true,
+        allowNull: false
+    },
+    nome: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+}, {
+    tableName: 'supermercado', // nome da tabela no banco de dados
+    timestamps: false // desativa as colunas createdAt e updatedAt
+});
+
 // Definição do modelo 'Itens'
 const Itens = sequelize.define('Itens', {
     id_item: {
@@ -58,11 +74,23 @@ const Itens = sequelize.define('Itens', {
     image: {
         type: DataTypes.BLOB,
         allowNull: false
+    },
+    id_super: {
+        type: DataTypes.BIGINT,
+        allowNull: false,
+        references: {
+            model: 'supermercado', // Nome da tabela referenciada
+            key: 'cnpj' // Chave primária da tabela referenciada
+        }
     }
 }, {
     tableName: 'item', // nome da tabela no banco de dados
     timestamps: false // desativa as colunas createdAt e updatedAt
 });
+
+// Associações
+Itens.belongsTo(Supermercado, { foreignKey: 'id_super', targetKey: 'cnpj' });
+Supermercado.hasMany(Itens, { foreignKey: 'id_super', sourceKey: 'cnpj' });
 
 app.use(express.json());
 
@@ -157,6 +185,40 @@ app.post('/login', async (req, res) => {
     } catch (error) {
         console.error('Erro ao autenticar usuário:', error);
         res.status(500).json({ error: 'Erro ao autenticar usuário' });
+    }
+});
+
+app.post('/calcular-preco', async (req, res) => {
+    const { itensSelecionados } = req.body;
+
+    try {
+        const itens = await Itens.findAll({
+            where: { id_item: itensSelecionados },
+            include: [{ model: Supermercado }]
+        });
+
+        const supermercadoPrecos = {};
+
+        itens.forEach(item => {
+            const cnpj = item.Supermercado.cnpj;
+            const nome = item.Supermercado.nome;
+            if (!supermercadoPrecos[cnpj]) {
+                supermercadoPrecos[cnpj] = { nome, total: 0 };
+            }
+            supermercadoPrecos[cnpj].total += item.preco;
+        });
+
+        const supermercadoMaisBarato = Object.keys(supermercadoPrecos).reduce((a, b) => 
+            supermercadoPrecos[a].total < supermercadoPrecos[b].total ? a : b
+        );
+
+        const menorPreco = supermercadoPrecos[supermercadoMaisBarato].total;
+        const nomeSupermercado = supermercadoPrecos[supermercadoMaisBarato].nome;
+
+        res.json({ supermercadoMaisBarato: nomeSupermercado, menorPreco });
+    } catch (error) {
+        console.error('Erro ao calcular o preço total:', error);
+        res.status(500).json({ error: 'Erro ao calcular o preço total' });
     }
 });
 
